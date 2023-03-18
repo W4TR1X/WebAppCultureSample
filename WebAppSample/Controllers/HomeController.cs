@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using WebAppSample.Models;
 using WebAppSampleCore.Interfaces.Services;
@@ -10,11 +11,15 @@ namespace WebAppSample.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ILocalizationService _localizer;
+        private readonly IOptions<RequestLocalizationOptions> _locOptions;
 
-        public HomeController(ILogger<HomeController> logger, ILocalizationService localizer)
+        public HomeController(ILogger<HomeController> logger
+            , IOptions<RequestLocalizationOptions> locOptions
+            , ILocalizationService localizer)
         {
             _logger = logger;
             _localizer = localizer;
+            _locOptions = locOptions;
         }
 
         public IActionResult Index()
@@ -30,11 +35,17 @@ namespace WebAppSample.Controllers
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
+            var isExists = _locOptions.Value.SupportedUICultures!
+                .Any(x => x.Name == culture);
+
+            if (isExists)
+            {
+                Response.Cookies.Append(
+                    CookieRequestCultureProvider.DefaultCookieName,
+                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+                );
+            }
 
             return LocalRedirect(returnUrl);
         }
