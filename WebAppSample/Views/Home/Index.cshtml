@@ -1,0 +1,11 @@
+﻿@using WebAppSampleCore.Interfaces.Services;
+@inject ILocalizationService Localizer
+@{
+    ViewData["Title"] = Localizer["Home Page"];
+    var message = @Localizer["Learn about {0}.", "<a href=\"https://learn.microsoft.com/aspnet/core\">" + Localizer["building Web apps with ASP.NET Core"] + "</a>"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Localizer["Wellcome"]</h1>
+    <p>@Html.Raw(message)</p>
+</div>

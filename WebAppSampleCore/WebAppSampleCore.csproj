@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>preview</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.4" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-preview.2.23128.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\SharedResources.fr.Designer.cs">
+	    <DependentUpon>SharedResources.fr.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Resources\SharedResources.en.Designer.cs">
+	    <DependentUpon>SharedResources.en.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Resources\SharedResources.tr.Designer.cs">
+	    <DependentUpon>SharedResources.tr.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\SharedResources.fr.resx">
+	    <LastGenOutput>SharedResources.fr.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\SharedResources.en.resx">
+	    <LastGenOutput>SharedResources.en.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\SharedResources.tr.resx">
+	    <LastGenOutput>SharedResources.tr.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>
