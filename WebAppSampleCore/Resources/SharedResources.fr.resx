@@ -127,4 +127,13 @@
   <data name="building Web apps with ASP.NET Core" xml:space="preserve">
     <value>création d'applications Web avec ASP.NET Core</value>
   </data>
+  <data name="French" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Anglaise (English)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>Turquie (Türkçe)</value>
+  </data>
 </root>

@@ -3,10 +3,19 @@
 
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var cultureItems = LocOptions.Value.SupportedUICultures
-        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+    var cultureItems = LocOptions.Value.SupportedUICultures!
+        .Select(c => new SelectListItem { Value = c.Name, Text = Localizer[c.EnglishName] })
         .ToList();
     var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+
+    string getCultureFlag()
+    {
+        return requestCulture?.RequestCulture.UICulture.Name switch
+        {
+            "en" => "us",
+            _ => requestCulture?.RequestCulture.UICulture.Name ?? string.Empty
+        };
+    }
 }
 
 <div title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
@@ -14,8 +23,8 @@
           asp-action="SetLanguage" asp-route-returnUrl="@returnUrl"
           method="post" class="form-horizontal" role="form">
         <label asp-for="@requestCulture!.RequestCulture.UICulture.Name">@Localizer["Language:"]</label>
-        <select name="culture"
-                onchange="this.form.submit();"
+        <span class="fi fi-@getCultureFlag()"></span>
+        <select name="culture" onchange="this.form.submit();"
                 asp-for="@requestCulture!.RequestCulture.UICulture.Name" asp-items="cultureItems">
         </select>
     </form>
